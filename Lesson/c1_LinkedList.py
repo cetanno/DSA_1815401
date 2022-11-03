@@ -56,13 +56,13 @@ class LL:
     def length(self):
         current = self.head
         if current is None:
-            print("0")
+            return 0
         else:
             count = 0
             while current:
                 count += 1
                 current = current.getNext()
-            print(count)
+            return count
         del current
 
     #PUSH DATA INTO LIST
@@ -114,36 +114,232 @@ class LL:
                 current = current.getNext()
                 if current:
                     print("-->", end=" ")
+        print()
         del current
 
-#IMPLEMENT SEVERAL FUNCTIONS INTO LINKED LIST CLASS ABOVE
+    #GET THE MAX VALUE
+    def max(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            max = current.getData()
+            while current.getNext():
+                current = current.getNext()
+                if current.getData() > max:
+                    max = current.getData()
+            return max
+        del current
+
+    # GET THE MAX VALUE
+    def min(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            min = current.getData()
+            while current.getNext():
+                current = current.getNext()
+                if current.getData() < min:
+                    min = current.getData()
+            return min
+        del current
+
+    #CALCULATE THE RANGE
+    def rangeOptimized(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            max = current.getData()
+            min = current.getData()
+            while current.getNext():
+                current = current.getNext()
+                if current.getData() < min:
+                    min = current.getData()
+                if current.getData() > max:
+                    max = current.getData()
+            return max - min
+        del current
+
+    def range(self):
+        if self.head is None:
+            print("List is empty")
+        else:
+            return self.max() - self.min()
+
+    #CALCULATE THE TOTAL
+    def total(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            sum = current.getData()
+            while current.getNext():
+                current = current.getNext()
+                sum += current.getData()
+            return sum
+        del current
+
+    #CALCULATE THE AVERAGE
+    def average(self):
+        if self.head is None:
+            print("List is empty")
+        else:
+            return self.total() / self.length()
+
+    #CHECK THE ORDER OF THE LIST
+    def checkSort(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            increase = False
+            decrease = False
+            k = current.getData()
+            while current.getNext():
+                current = current.getNext()
+                if current.getData() > k:
+                    increase = True
+                elif current.getData() < k:
+                    decrease = True
+                k = current.getData()
+            if (increase and decrease or (not increase and not decrease)):
+                print ("Neither")
+            elif (increase):
+                print ("Increase")
+            else:
+                print("Decrease")
+        del current
+
+    # SORT IN INCREASING ORDER
+    def sortIncrease(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            while current:
+                tempNode = current.getNext()
+                while tempNode:
+                    if tempNode.getData() < current.getData():
+                        tempValue = current.getData()
+                        current.updateData(tempNode.getData())
+                        tempNode.updateData(tempValue)
+                    tempNode = tempNode.getNext()
+                current = current.getNext()
+            print ("The list is sorted in increasing order.")
+
+    #SORT IN DECREASING ORDER
+    def sortDecrease(self):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            while current:
+                tempNode = current.getNext()
+                while tempNode:
+                    if tempNode.getData() > current.getData():
+                        tempValue = current.getData()
+                        current.updateData(tempNode.getData())
+                        tempNode.updateData(tempValue)
+                    tempNode = tempNode.getNext()
+                current = current.getNext()
+            print ("The list is sorted in decreasing order.")
+
+    #FIND THE DATA IN THE LIST
+    def findData(self,data):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            k = 1
+            while current:
+                if current.getData() == data:
+                    print("The data is found in the list at index", k)
+                    return k
+                current = current.getNext()
+                k += 1
+            print("The data is not found in the list.")
+
+    #HOW TO GET DATA USING THE INDEX
+    def getData(self,index):
+        current = self.head
+        if current is None:
+            print("List is empty")
+        else:
+            k = 1
+            while current:
+                if k == index:
+                    print("The data at index", k, "is", current.getData())
+                    return current.getData()
+                current = current.getNext()
+                k += 1
+            print("The index desired in not within the size of the list")
+
+    #REMOVE THE DATA BY FINDING IT'S INDEX
+    def removebyIndex(self,index):
+        current = self.head
+        prev = None
+        if current is None:
+            print("List is empty")
+        else:
+            k = 1
+            while current:
+                if k == index:
+                    print("Data", current.getData(),"at index", k,"will be removed")
+                    if prev is None:
+                        self.head = current.getNext()
+                    else:
+                        prev.setLink(current.getNext())
+
+                    return
+                else:
+                    prev = current
+                    current = current.getNext()
+                    k += 1
+            print("The index desired in not within the size of the list")
+
+#IMPLEMENT SEVERAL FUNCTIONS INTO LINKED LIST CLASS ABOVE (PRACTICE 1, DONE)
 # Get the maximum value from the list
 # Get the minimum value from the list
 # Get the range value from the list
 # Get the total and average value from the list
 # Check whether the list is sorted in increasing or decreasing or neither
 
+#IMPLEMENT SEVERAL FUNCTIONS INTO LINKED LIST CLASS ABOVE (PRACTICE 2)
+# Modify the removebyIndex to create another function removeData that removes the data by searching for the data in the list.
+# CHALLENGE
+# Insert the data into a sorted list while keeping it sorted (increasing or decreasing), if the list is not sorted, abort the operation.
 
 list = LL()
 list.push(1)
 list.push(2)
 list.push(3)
 list.push(4)
-list.push(5)
+
 list.displayList()
-list.pop()
-list.pop()
+print(list.max())
+print(list.min())
+
+print(list.range())
+print(list.rangeOptimized()) #not recommended in some cases
+print(list.total())
+print(list.average())
+
+list.checkSort()
+
+list.sortIncrease()
 list.displayList()
 
-list.clearList()
+list.sortDecrease()
 list.displayList()
 
-list.enqueue(1)
-list.enqueue(2)
-list.enqueue(3)
-list.enqueue(4)
-list.enqueue(5)
-list.displayList()
-list.dequeue()
-list.dequeue()
+list.findData(3)
+list.findData(5)
+
+list.getData(3)
+list.getData(5)
+
+list.removebyIndex(2)
+list.removebyIndex(4)
 list.displayList()
