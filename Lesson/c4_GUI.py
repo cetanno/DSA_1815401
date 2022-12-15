@@ -35,7 +35,11 @@ class LL:
 
     # CLEARING THE LIST
     def clearList(self):
-        self.head = None
+        if self.head:
+            data = self.head.getData()
+            self.head = None
+            return data
+        return ""
 
     # GET THE LENGTH
     def length(self):
@@ -62,7 +66,10 @@ class LL:
         tempNode = self.head
         if tempNode:
             self.head = tempNode.getNext()
+            data = tempNode.getData()
             del tempNode
+            return data
+        return ""
 
     # ENQUEUE DATA INTO LIST
     def enqueue(self, data):
@@ -82,7 +89,7 @@ class LL:
 
     # DEQUEUE DATA FROM THE LIST
     def dequeue(self):
-        self.pop()
+        return self.pop()
 
     # PRINT THE LIST IN THE CONSOLE
     def printList(self):
@@ -102,24 +109,24 @@ class LL:
     def removebyIndex(self, index):
         current = self.head
         prev = None
-        if current is None:
-            print("List is empty")
+        if current is None: # IF THE LIST IS EMPTY
+            return "", -1
         else:
             k = 0
             while current:
                 if k == index:
-                    print("Data", current.getData(), "at index", k, "will be removed")
-                    if prev is None:
+                    data = current.getData()
+                    if prev is None: # IF THE INDEX PROVIDED IS THE HEAD OF THE LIST
                         self.head = current.getNext()
                     else:
                         prev.setLink(current.getNext())
 
-                    return
-                else:
+                    return data, k
+                else: # IF THE INDEX IS OUTSIDE OF THE LIST
                     prev = current
                     current = current.getNext()
                     k += 1
-            print("The index desired in not within the size of the list")
+            return "", -2
 
 list = LL(12)
 
@@ -129,12 +136,17 @@ list = LL(12)
 ############################
 
 def clearInput():
-   input.delete(0,'end')
+    input.delete(0,'end')
+
+def updateAction(text):
+    action.config(text=text)
+    action.pack(side="top")
 
 def pushData():
     data = input.get()
     if data and list.length() != list.maxSize:
         list.push(data)
+        updateAction(f"\"{data}\" has been pushed into the list.")
         clearInput()
         list.printList()
         showList()
@@ -143,37 +155,56 @@ def enqueueData():
     data = input.get()
     if data and list.length() != list.maxSize:
         list.enqueue(data)
+        updateAction(f"\"{data}\" has been enqueued into the list.")
         clearInput()
         list.printList()
         showList()
 
 def popData():
-    list.pop()
-    list.printList()
-    showList()
+    data = list.pop()
+    if data:
+        updateAction(f"\"{data}\" has been popped from the list.")
+        list.printList()
+        showList()
+    else:
+        updateAction(f"No data is being popped from the list.")
 
 def dequeueData():
-    list.dequeue()
-    list.printList()
-    showList()
+    data = list.dequeue()
+    if data:
+        updateAction(f"\"{data}\" has been dequeued from the list.")
+        list.printList()
+        showList()
+    else:
+        updateAction(f"No data is being dequeued from the list.")
 
 def clearList():
-    list.clearList()
-    list.printList()
-    showList()
+    data = list.clearList()
+    if data:
+        updateAction(f"The list has been cleared.")
+        list.printList()
+        showList()
+    else:
+        updateAction(f"The list is already empty.")
 
 def deleteData(i):
     print(i)
-    list.removebyIndex(i)
-    list.printList()
-    showList()
+    data, id = list.removebyIndex(i)
+    if id == -1:
+        updateAction(f"The list is already empty.")
+    elif id == -2:
+        updateAction(f"A bug has occurred here. This should not happen.")
+    else:
+        updateAction(f"\"{data}\" at position {id + 1} has been deleted from the list.")
+        list.printList()
+        showList()
 
 def showList():
     current = list.head
     count = 0
     isList = False
 
-    while current:
+    while current: # HANDLING THE POSITIONS THAT HOLD THE DATA
         isList = True
         data[count].config(text=current.getData())
 
@@ -184,7 +215,7 @@ def showList():
         count += 1
         current = current.getNext()
 
-    while count < list.maxSize:
+    while count < list.maxSize: # HANDLING EMPTY POSITIONS
         data[count].config(text="")
 
         num[count].grid_forget()
@@ -192,7 +223,7 @@ def showList():
         delete[count].grid_forget()
         count += 1
 
-    if isList:
+    if isList: # CHECKING IF THE LIST EXIST OR NOT
         listFrame.pack()
     else:
         listFrame.pack_forget()
@@ -207,19 +238,27 @@ main = tk.Tk()
 main.title('Stack and Queue Simulation')
 main.resizable(width=False, height=False)
 
-# CREATE INPUT FRAME
-inputframe = tk.Frame(master=main, padx=10, pady=5)
-inputframe.pack(fill=tk.X)
+# CREATE INSTRUCTION FRAME
+instructionframe = tk.Frame(master=main, padx=10, pady=5)
+instructionframe.pack(fill=tk.X)
 
 # CREATE INSTRUCTION TEXT
 instruction = tk.Label(
-    master=inputframe,
+    master=instructionframe,
     text="Add data into the list either by \"PUSH\" or \"ENQUEUE\".\n"
          "Remove data from the list either by \"POP\" or \"DEQUEUE\".\n"
          f"Clear the list using \"CLEAR\". Max {list.maxSize} data only in this list.",
     width=50)
 instruction.pack()
 
+# CREATE ACTION TEXT
+action = tk.Label(master= instructionframe,text="", width=50)
+
+# CREATE INPUT FRAME
+inputframe = tk.Frame(master=main, padx=10, pady=5)
+inputframe.pack(fill=tk.X)
+
+# CREATE INPUT LABEL
 labelinput = tk.Label(master=inputframe, text="Input text\t")
 labelinput.pack(side='left')
 
@@ -230,7 +269,7 @@ input.pack(side='right')
 # CREATE BUTTON FRAME
 buttonframe = tk.Frame(master=main, padx=10, pady=5)
 
-# CREATE THE CLICKABLE BUTTON
+# CREATE THE CLICKABLE BUTTONS
 pushButton = tk.Button(master=buttonframe, text="PUSH", width=10, command=pushData)
 enqueueButton = tk.Button(master=buttonframe, text="ENQUEUE", width=10, command=enqueueData)
 popButton = tk.Button(master=buttonframe, text="POP", width=10, command=popData)
@@ -254,7 +293,8 @@ for i in range(list.maxSize):
     num[i] = tk.Label(master=listFrame, text=str(i+1), width=11, height=2, relief='groove')
     data[i] = tk.Label(master=listFrame, text="", width=33, height=2, relief='groove')
 
-    deleteData_arg = partial(deleteData, i)
+    # ASSIGNING DISTINCT PARAMETRIC FUNCTIONAL COMMANDS (AKA CALLING SAME FUNCTION WITH INCREMENTAL VALUES) TO A BUTTON
+    deleteData_arg = partial(deleteData, i) # deleteData(i)
     delete[i] = tk.Button(master=listFrame, text='Delete', width=10, command=deleteData_arg)
 
 # RUN THE WINDOW
