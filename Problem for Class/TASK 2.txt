@@ -1,0 +1,32 @@
+Practice for Task 2
+You may create your own linked list coding or use mine instead.
+2a. Create 2 functions countOdd() and countEven() that counts the even and odd numbers in the list. (3m)
+2b. Create a function that swaps 2 elements in the list using their index number. (3m)
+
+If you use my code, I will directly append the following in your code. Else, Ill try to adapt my code to yours
+
+list = LL()
+list.addToStart(10)
+list.addToStart(20)
+list.addToStart(45)
+list.addToStart(35)
+list.addToStart(15)
+
+list.displayList()
+print(list.countOdd())
+print(list.countEven())
+
+list.addToStart(30)
+list.addToStart(40)
+list.displayList()
+print(list.countOdd())
+print(list.countEven())
+
+list.swap(1,5)
+list.displayList()
+
+list.swap(2,3)
+list.displayList()
+
+list.swap(7,4)
+list.displayList()
