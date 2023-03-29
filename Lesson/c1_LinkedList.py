@@ -298,16 +298,7 @@ class LL:
                     current = current.getNext()
                     k += 1
             print("The index desired in not within the size of the list")
-
-#IMPLEMENT SEVERAL FUNCTIONS INTO LINKED LIST CLASS ABOVE (PRACTICE 1, DONE)
-# Get the maximum value from the list
-# Get the minimum value from the list
-# Get the range value from the list
-# Get the total and average value from the list
-# Check whether the list is sorted in increasing or decreasing or neither
-
-#IMPLEMENT SEVERAL FUNCTIONS INTO LINKED LIST CLASS ABOVE (PRACTICE 2)
-# Modify the removebyIndex to create another function removeData that removes the data by searching for the data in the list.
+            
 # CHALLENGE
 # Insert the data into a sorted list while keeping it sorted (increasing or decreasing), if the list is not sorted, abort the operation.
 
