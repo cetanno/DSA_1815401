@@ -1,0 +1,60 @@
+Practice for Task 3
+You MUST create your own linked list as this will now involves only characters. To make it easier for me to grade, use listA as the original linked list, arrayA as the array for 3b and listB as the second linked list for 3c. For each task, I will append the following code directly after your code.
+
+3a. Implement the push(), pop(), enqueue(), dequeue(), displayList() and count() functions. (2m)
+
+listA = LL()
+listA.push('P')
+listA.push('Y')
+listA.enqueue('T')
+listA.enqueue('H')
+listA.push('O')
+listA.enqueue('N')
+listA.displayList()
+print(listA.count())
+
+listA.pop()
+listA.dequeue()
+listA.pop()
+listA.displayList()
+print(listA.count())
+
+3b. Implement an external function that converts the linked list into an array. The original linked list will be cleared and the array will be returned. The function needs the linked list as its parameter and returns an array. You MUST implement stack or queue functions as well as the count function from 3a into the external functions. (3m)
+
+listA = LL()
+listA.push('I')
+listA.enqueue('L')
+listA.enqueue('O')
+listA.enqueue('V')
+listA.enqueue('E')
+listA.push('C')
+listA.push('O')
+listA.push('D')
+listA.push('I')
+listA.push('N')
+listA.push('G')
+listA.displayList()
+
+arrayA = convertToArray(listA)
+listA.displayList()
+print(arrayA)
+
+3c. Implement an external function that reverses a linked list into another empty linked list. The original linked list will be cleared. The function needs 2 linked list as its parameter and have no return value. You MUST implement stack or queue functions from 3a into the external function. (3m)
+
+listA = LL()
+listB = LL()
+listA.push('I')
+listA.enqueue('A')
+listA.enqueue('M')
+listA.push('A')
+listA.enqueue('M')
+listA.enqueue('U')
+listA.enqueue('S')
+listA.enqueue('L')
+listA.enqueue('I')
+listA.enqueue('M')
+listA.displayList()
+
+reverseList(listA,listB)
+listA.displayList()
+listB.displayList()
