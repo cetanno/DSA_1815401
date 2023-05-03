@@ -128,7 +128,7 @@ class LL:
                     k += 1
             return "", -2
 
-list = LL(12)
+list = LL(20)
 
 
 ############################
@@ -297,5 +297,14 @@ for i in range(list.maxSize):
     deleteData_arg = partial(deleteData, i) # deleteData(i)
     delete[i] = tk.Button(master=listFrame, text='Delete', width=10, command=deleteData_arg)
 
+#   ANOTHER WAY TO PASS THE PARAMETER TO A COMMAND IS THE FOLLOWING CODE
+#
+#   delete[i] = tk.Button(master=listFrame, text='Delete', width=10, command= lambda : deleteData(i))
+#
+#   HOWEVER THIS ONLY APPLIES FOR NON-ARRAY COMPONENTS.
+
+
 # RUN THE WINDOW
 main.mainloop()
+
+# TEAMWORK MAKES THE DREAM WORK
