@@ -64,6 +64,14 @@ def printBranches(node,path):
     if not haveBranch:
         print(path)
 
+def InOrderTraversal(node):
+    if node.lbranch:
+        InOrderTraversal(node.lbranch)
+    print("-->", node.val, end=" ")
+    if node.rbranch:
+        InOrderTraversal(node.rbranch)
+
+
 rootsort = Node(10)
 insert(rootsort, 12)
 insert(rootsort, 9)
@@ -74,3 +82,4 @@ insert(rootsort, 4)
 insert(rootsort, 11)
 
 printBranches(rootsort,"")
+InOrderTraversal(rootsort)

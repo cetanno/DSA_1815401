@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkFont
 from functools import partial
 
 ###################
@@ -128,7 +129,7 @@ class LL:
                     k += 1
             return "", -2
 
-list = LL(20)
+list = LL(10)
 
 
 ############################
@@ -150,6 +151,11 @@ def pushData():
         clearInput()
         list.printList()
         showList()
+    elif not data:
+        updateAction(f"No data is given.")
+    else:
+        updateAction(f"The list is already full.")
+
 
 def enqueueData():
     data = input.get()
@@ -159,6 +165,10 @@ def enqueueData():
         clearInput()
         list.printList()
         showList()
+    elif not data:
+        updateAction(f"No data is given.")
+    else:
+        updateAction(f"The list is already full.")
 
 def popData():
     data = list.pop()
@@ -167,7 +177,7 @@ def popData():
         list.printList()
         showList()
     else:
-        updateAction(f"No data is being popped from the list.")
+        updateAction(f"You may not pop an empty list.")
 
 def dequeueData():
     data = list.dequeue()
@@ -176,7 +186,7 @@ def dequeueData():
         list.printList()
         showList()
     else:
-        updateAction(f"No data is being dequeued from the list.")
+        updateAction(f"You may not dequeue an empty list.")
 
 def clearList():
     data = list.clearList()
@@ -238,43 +248,50 @@ main = tk.Tk()
 main.title('Stack and Queue Simulation')
 main.resizable(width=False, height=False)
 
+# SETTING THE FONT
+headerStyle = tkFont.Font(size=25,family="Times New Roman",weight="bold",underline=True,slant="italic")
+contentStyle = tkFont.Font(size=15,family="Calibri")
+
 # CREATE INSTRUCTION FRAME
 instructionframe = tk.Frame(master=main, padx=10, pady=5)
 instructionframe.pack(fill=tk.X)
 
 # CREATE INSTRUCTION TEXT
+header = tk.Label(master=instructionframe,text="STACK AND QUEUE SIMULATION", font= headerStyle)
 instruction = tk.Label(
     master=instructionframe,
     text="Add data into the list either by \"PUSH\" or \"ENQUEUE\".\n"
          "Remove data from the list either by \"POP\" or \"DEQUEUE\".\n"
          f"Clear the list using \"CLEAR\". Max {list.maxSize} data only in this list.",
+    font= contentStyle,
     width=50)
+header.pack()
 instruction.pack()
 
 # CREATE ACTION TEXT
-action = tk.Label(master= instructionframe,text="", width=50)
+action = tk.Label(master= instructionframe,text="",font= contentStyle, width=50)
 
 # CREATE INPUT FRAME
 inputframe = tk.Frame(master=main, padx=10, pady=5)
 inputframe.pack(fill=tk.X)
 
 # CREATE INPUT LABEL
-labelinput = tk.Label(master=inputframe, text="Input text\t")
+labelinput = tk.Label(master=inputframe, font= contentStyle,text="Input text\t")
 labelinput.pack(side='left')
 
 # CREATE INPUT BOX ELEMENT
-input = tk.Entry(master=inputframe, width=50)
+input = tk.Entry(master=inputframe, font= contentStyle, width=40)
 input.pack(side='right')
 
 # CREATE BUTTON FRAME
 buttonframe = tk.Frame(master=main, padx=10, pady=5)
 
 # CREATE THE CLICKABLE BUTTONS
-pushButton = tk.Button(master=buttonframe, text="PUSH", width=10, command=pushData)
-enqueueButton = tk.Button(master=buttonframe, text="ENQUEUE", width=10, command=enqueueData)
-popButton = tk.Button(master=buttonframe, text="POP", width=10, command=popData)
-dequeueButton = tk.Button(master=buttonframe, text="DEQUEUE", width=10, command=dequeueData)
-clearButton = tk.Button(master=buttonframe, text="CLEAR", width=10, command=clearList)
+pushButton = tk.Button(master=buttonframe, font= contentStyle,text="PUSH", width=10, command=pushData)
+enqueueButton = tk.Button(master=buttonframe, font= contentStyle,text="ENQUEUE", width=10, command=enqueueData)
+popButton = tk.Button(master=buttonframe, font= contentStyle,text="POP", width=10, command=popData)
+dequeueButton = tk.Button(master=buttonframe, font= contentStyle,text="DEQUEUE", width=10, command=dequeueData)
+clearButton = tk.Button(master=buttonframe, font= contentStyle,text="CLEAR", width=10, command=clearList)
 
 pushButton.grid(row=0, column=0)
 enqueueButton.grid(row=0, column=1)
@@ -290,12 +307,12 @@ delete = {}
 listFrame = tk.Frame(master=main, padx=10, pady=5)
 
 for i in range(list.maxSize):
-    num[i] = tk.Label(master=listFrame, text=str(i+1), width=11, height=2, relief='groove')
-    data[i] = tk.Label(master=listFrame, text="", width=33, height=2, relief='groove')
+    num[i] = tk.Label(master=listFrame, font= contentStyle,text=str(i+1), width=11, height=2, relief='groove')
+    data[i] = tk.Label(master=listFrame, font= contentStyle,text="", width=33, height=2, relief='groove')
 
     # ASSIGNING DISTINCT PARAMETRIC FUNCTIONAL COMMANDS (AKA CALLING SAME FUNCTION WITH INCREMENTAL VALUES) TO A BUTTON
     deleteData_arg = partial(deleteData, i) # deleteData(i)
-    delete[i] = tk.Button(master=listFrame, text='Delete', width=10, command=deleteData_arg)
+    delete[i] = tk.Button(master=listFrame, font= contentStyle,text='Delete', width=10, command=deleteData_arg)
 
 #   ANOTHER WAY TO PASS THE PARAMETER TO A COMMAND IS THE FOLLOWING CODE
 #

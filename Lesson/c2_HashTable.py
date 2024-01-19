@@ -56,7 +56,8 @@ class HashTable:
                 if self.keys[index] == key:
                     return self.values[index]
                 else:
-                    return None
+                    index = self.rehash(index)
+            return None
 
     def __getitem__(self,key):
         return self.get(key)
@@ -89,8 +90,6 @@ class HashTable:
 
 #   def delete(self,key):
 
-# AS A PRACTICE, MODIFY/ADD A FUNCTION INSIDE THE CLASS THAT DELETES THE VALUE INSIDE THE HASH TABLE
-
 H = HashTable(7)
 
 H[1] = "ECIE" #THE INDEX IS 1
@@ -107,13 +106,13 @@ H[7] = "PYTHON" #THE INDEX IS 0
 print(H.keys)
 print(H.values)
 
-H[10] = "C++"
+H[10] = "C++" #__setitem__
 H[20] = "PHP"
 
 print(H.keys)
 print(H.values)
 
-print(H[1])
+print(H[1]) #__getitem__
 print(H[20])
 print(H[30])
 

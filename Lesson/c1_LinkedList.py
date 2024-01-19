@@ -1,6 +1,6 @@
 #NODE CLASS
 class Node:
-    #CONSTUCTOR
+    #CONSTRUCTOR
     def __init__(self, data=None, link=None):
         self.data = data
         self.link = link
@@ -31,8 +31,8 @@ class LL:
     #ADD A NODE TO THE START OF THE LIST
     def addToStart(self,data):
         tempNode = Node(data)
-        tempNode.setLink(self.head)
-        self.head = tempNode
+        tempNode.setLink(self.head) #first step
+        self.head = tempNode #second
         del tempNode
 
     #ADD A NODE TO THE END OF THE LIST
@@ -42,9 +42,9 @@ class LL:
             self.addToStart(data)
         else:
             tempNode = Node(data)
-            while current.getNext():
-                current = current.getNext()
-            current.setLink(tempNode)
+            while current.getNext(): #Step 1
+                current = current.getNext() #STEP 1
+            current.setLink(tempNode) #STEP 2
             del tempNode
         del current
 
@@ -62,8 +62,8 @@ class LL:
             while current:
                 count += 1
                 current = current.getNext()
+            del current
             return count
-        del current
 
     #PUSH DATA INTO LIST
     def push(self,data):
@@ -110,7 +110,7 @@ class LL:
             print("List is empty")
         else:
             while current:
-                print(current.getData(),end=" ")
+                print(current.getData(), end=" ")
                 current = current.getNext()
                 if current:
                     print("-->", end=" ")
@@ -298,7 +298,7 @@ class LL:
                     current = current.getNext()
                     k += 1
             print("The index desired in not within the size of the list")
-            
+
 # CHALLENGE
 # Insert the data into a sorted list while keeping it sorted (increasing or decreasing), if the list is not sorted, abort the operation.
 

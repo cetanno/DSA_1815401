@@ -14,9 +14,9 @@ main = tk.Tk()
 main.title("Add 2 numbers")
 main.resizable(width=False,height=False)
 
-inputFrame1 = tk.Frame(master=main,padx=10, pady=5)
+inputFrame1 = tk.Frame(master=main,padx=10, pady=5, bg= "blue")
 inputFrame1.pack()
-inputFrame2 = tk.Frame(master=main,padx=10, pady=5)
+inputFrame2 = tk.Frame(master=main,padx=10, pady=5, bg="yellow")
 inputFrame2.pack()
 
 labelA = tk.Label(master=inputFrame1,text="Input A")

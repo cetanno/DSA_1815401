@@ -5,14 +5,13 @@ a = 12345 #INITIALIZATION
 b = 54321
 print(a,b,"yes") #MULTIPLE OUTPUTS SYNTAX
 
-
 a,b,q = b,a,"cie" #SWAP AND ASSIGNING MULTIPLE VALUES
 print(a,b,q)
 
-print("Input here")
+print("Input string here")
 c = input() #INPUT, THIS FUNCTION ASSUMES THE INPUT TO BE A STRING
-print("and here")
-cnum = float(input()) #INTEGER INPUT
+print("and number here")
+cnum = float(input()) #INTEGER INPUT float(),int()
 print(c, "is the input while", cnum, "is the integer input")
 
 #DATA TYPES
@@ -47,12 +46,19 @@ for i in range(3): #DEFAULT INITIAL 0 if 1 parameter
 for i in range(6,10): #6,7,8,9. it does not hit 10
     print("Loop B is repeated", i, "times.")
 
+for i in "PYTHON": #Looping a string
+    print("The letter is", i)
+
+arr = [12,51,85,19,28]
+for i in arr: #Looping an array
+    print(i)
+
 #WHILE LOOP
 total = 0
-i = 1
-while(i<10):
+i = 1 #Initialize
+while(i<10): #The checking
     total += i
-    i += 1
+    i += 1 #The update
 print("Total for this Loop C is",total)
 
 #FUNCTION
@@ -66,3 +72,23 @@ print(Add2Number(10,5))
 print(Add2Number(10))
 # print(Add2Number())  THIS WILL RETURN AN ERROR
 sayHello()
+
+#COMPARATORS
+yes = True
+no = False
+
+print("AND")
+print(yes and yes)
+print(yes and no)
+print(no and yes)
+print(no and no)
+
+print("OR")
+print(yes or yes)
+print(yes or no)
+print(no or yes)
+print(no or no)
+
+print("NOT")
+print(not yes)
+print(not no)
